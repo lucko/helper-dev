@@ -32,23 +32,23 @@ public class ItemCommands implements CompositeTerminable {
                 .assertPlayer()
                 .assertPermission("helperdev.iaddlore")
                 .handler(c -> {
-                    ItemStack hand = c.getSender().getItemInHand();
+                    ItemStack hand = c.sender().getItemInHand();
                     if (hand == null || hand.getType() == Material.AIR) {
-                        CommandUtil.msg(c.getSender(), "You need to be holding an item.");
+                        CommandUtil.msg(c.sender(), "You need to be holding an item.");
                         return;
                     }
 
-                    if (c.getArgs().size() == 0) {
-                        CommandUtil.msg(c.getSender(), "/iaddlore <lore>");
+                    if (c.args().size() == 0) {
+                        CommandUtil.msg(c.sender(), "/iaddlore <lore>");
                         return;
                     }
 
-                    String name = c.getArgs().stream().collect(Collectors.joining(" "));
+                    String name = c.args().stream().collect(Collectors.joining(" "));
                     name = name.replace("{}", " ");
 
                     hand = ItemStackBuilder.of(hand).lore(name).build();
-                    c.getSender().setItemInHand(hand);
-                    CommandUtil.msg(c.getSender(), "Added lore: &r" + name);
+                    c.sender().setItemInHand(hand);
+                    CommandUtil.msg(c.sender(), "Added lore: &r" + name);
                 })
                 .register(plugin, "iaddlore");
 
@@ -57,19 +57,19 @@ public class ItemCommands implements CompositeTerminable {
                 .assertPlayer()
                 .assertPermission("helperdev.iinsertlore")
                 .handler(c -> {
-                    ItemStack hand = c.getSender().getItemInHand();
+                    ItemStack hand = c.sender().getItemInHand();
                     if (hand == null || hand.getType() == Material.AIR) {
-                        CommandUtil.msg(c.getSender(), "You need to be holding an item.");
+                        CommandUtil.msg(c.sender(), "You need to be holding an item.");
                         return;
                     }
 
-                    if (c.getArgs().size() < 2) {
-                        CommandUtil.msg(c.getSender(), "/iinsertlore <line> <string>");
+                    if (c.args().size() < 2) {
+                        CommandUtil.msg(c.sender(), "/iinsertlore <line> <string>");
                         return;
                     }
 
-                    int line = Integer.parseInt(c.getArg(0));
-                    List<String> arguments = new ArrayList<>(c.getArgs());
+                    int line = Integer.parseInt(String.valueOf(c.rawArg(0)));
+                    List<String> arguments = new ArrayList<>(c.args());
                     arguments.remove(0);
 
                     String str = arguments.stream().collect(Collectors.joining(" "));
@@ -85,8 +85,8 @@ public class ItemCommands implements CompositeTerminable {
 
                     meta.setLore(lore);
                     hand.setItemMeta(meta);
-                    c.getSender().setItemInHand(hand);
-                    CommandUtil.msg(c.getSender(), "Inserted lore on line: &r" + line);
+                    c.sender().setItemInHand(hand);
+                    CommandUtil.msg(c.sender(), "Inserted lore on line: &r" + line);
                 })
                 .register(plugin, "iinsertlore");
 
@@ -95,18 +95,18 @@ public class ItemCommands implements CompositeTerminable {
                 .assertPlayer()
                 .assertPermission("helperdev.iremovelore")
                 .handler(c -> {
-                    ItemStack hand = c.getSender().getItemInHand();
+                    ItemStack hand = c.sender().getItemInHand();
                     if (hand == null || hand.getType() == Material.AIR) {
-                        CommandUtil.msg(c.getSender(), "You need to be holding an item.");
+                        CommandUtil.msg(c.sender(), "You need to be holding an item.");
                         return;
                     }
 
-                    if (c.getArgs().size() == 0) {
-                        CommandUtil.msg(c.getSender(), "/iremovelore <line>");
+                    if (c.args().size() == 0) {
+                        CommandUtil.msg(c.sender(), "/iremovelore <line>");
                         return;
                     }
 
-                    int line = Integer.parseInt(c.getArg(0));
+                    int line = Integer.parseInt(String.valueOf(c.rawArg(0)));
 
                     ItemMeta meta = hand.getItemMeta();
                     List<String> lore = meta.getLore();
@@ -114,8 +114,8 @@ public class ItemCommands implements CompositeTerminable {
 
                     meta.setLore(lore);
                     hand.setItemMeta(meta);
-                    c.getSender().setItemInHand(hand);
-                    CommandUtil.msg(c.getSender(), "Removed lore on line: &r" + line);
+                    c.sender().setItemInHand(hand);
+                    CommandUtil.msg(c.sender(), "Removed lore on line: &r" + line);
                 })
                 .register(plugin, "iremovelore");
 
@@ -124,23 +124,23 @@ public class ItemCommands implements CompositeTerminable {
                 .assertPlayer()
                 .assertPermission("helperdev.isetname")
                 .handler(c -> {
-                    ItemStack hand = c.getSender().getItemInHand();
+                    ItemStack hand = c.sender().getItemInHand();
                     if (hand == null || hand.getType() == Material.AIR) {
-                        CommandUtil.msg(c.getSender(), "You need to be holding an item.");
+                        CommandUtil.msg(c.sender(), "You need to be holding an item.");
                         return;
                     }
 
-                    if (c.getArgs().size() == 0) {
-                        CommandUtil.msg(c.getSender(), "/isetname <name>");
+                    if (c.args().size() == 0) {
+                        CommandUtil.msg(c.sender(), "/isetname <name>");
                         return;
                     }
 
-                    String name = c.getArgs().stream().collect(Collectors.joining(" "));
+                    String name = c.args().stream().collect(Collectors.joining(" "));
                     name = name.replace("{}", " ");
 
                     hand = ItemStackBuilder.of(hand).name(name).build();
-                    c.getSender().setItemInHand(hand);
-                    CommandUtil.msg(c.getSender(), "Set name to: &r" + name);
+                    c.sender().setItemInHand(hand);
+                    CommandUtil.msg(c.sender(), "Set name to: &r" + name);
                 })
                 .register(plugin, "isetname");
 
@@ -149,23 +149,23 @@ public class ItemCommands implements CompositeTerminable {
                 .assertPlayer()
                 .assertPermission("helperdev.isettype")
                 .handler(c -> {
-                    ItemStack hand = c.getSender().getItemInHand();
+                    ItemStack hand = c.sender().getItemInHand();
                     if (hand == null || hand.getType() == Material.AIR) {
-                        CommandUtil.msg(c.getSender(), "You need to be holding an item.");
+                        CommandUtil.msg(c.sender(), "You need to be holding an item.");
                         return;
                     }
 
-                    if (c.getArgs().size() == 0) {
-                        CommandUtil.msg(c.getSender(), "/isettype <type>");
+                    if (c.args().size() == 0) {
+                        CommandUtil.msg(c.sender(), "/isettype <type>");
                         return;
                     }
 
-                    String name = c.getArgs().stream().collect(Collectors.joining(" "));
+                    String name = c.args().stream().collect(Collectors.joining(" "));
                     Material mat = Material.valueOf(name.toUpperCase().replace(" ", "_"));
 
                     hand = ItemStackBuilder.of(hand).type(mat).build();
-                    c.getSender().setItemInHand(hand);
-                    CommandUtil.msg(c.getSender(), "Set name to: &r" + name);
+                    c.sender().setItemInHand(hand);
+                    CommandUtil.msg(c.sender(), "Set name to: &r" + name);
                 })
                 .register(plugin, "isettype");
     }

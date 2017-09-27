@@ -29,7 +29,7 @@ public class HelperDevPlugin extends ExtendedJavaPlugin {
         Commands.create()
                 .assertPermission("helperdev.echo")
                 .handler(c -> {
-                    c.getSender().sendMessage(Color.colorize(c.getArgs().stream().collect(Collectors.joining(" ")).replace("{}", " ")));
+                    c.sender().sendMessage(Color.colorize(c.args().stream().collect(Collectors.joining(" ")).replace("{}", " ")));
                 })
                 .register(this, "echo");
 
